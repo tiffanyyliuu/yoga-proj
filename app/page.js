@@ -117,10 +117,12 @@ export default async function LandingPage() {
                   <span>{section.label}</span><span>{section.dur}</span>
                 </div>
                 {section.poses.map((p, i) => (
-                  <div key={i} className="flex items-baseline gap-6 py-2 border-b border-stone-200 dark:border-stone-700 last:border-0 text-[13px]">
-                    <span className="text-stone-400 dark:text-stone-500 font-serif shrink-0 whitespace-nowrap" style={{ minWidth: 90 }}>{p.time}</span>
-                    <span className="text-stone-700 dark:text-stone-300 flex-1">{p.name}</span>
-                    {p.mod && <span className="text-[11px] text-stone-400 dark:text-stone-500 italic shrink-0">✦ {p.mod}</span>}
+                  <div key={i} className="flex gap-6 py-2 border-b border-stone-200 dark:border-stone-700 last:border-0 text-[13px]">
+                    <span className="text-stone-400 dark:text-stone-500 font-serif shrink-0 whitespace-nowrap pt-px" style={{ minWidth: 90 }}>{p.time}</span>
+                    <div>
+                      <span className="text-stone-700 dark:text-stone-300">{p.name}</span>
+                      {p.mod && <p className="text-[11px] text-stone-400 dark:text-stone-500 italic mt-0.5">✦ {p.mod}</p>}
+                    </div>
                   </div>
                 ))}
               </div>
