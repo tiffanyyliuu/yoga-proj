@@ -106,7 +106,7 @@ export default function SequenceEditor({ sequence, classId, className }) {
   }
 
   return (
-    <div className="min-h-screen bg-stone-50 dark:bg-stone-950">
+    <div className="min-h-screen bg-stone-50 dark:bg-stone-950 overflow-x-hidden">
       <header className="bg-stone-950 text-stone-100 px-6 sm:px-8 py-5 flex items-center justify-between">
         <Link href="/dashboard" className="font-serif text-xl tracking-wide">Sequence</Link>
         <div className="flex items-center gap-4">
@@ -117,13 +117,14 @@ export default function SequenceEditor({ sequence, classId, className }) {
 
       <div className="bg-stone-900 text-stone-100 px-6 sm:px-8 py-10">
         <div className="max-w-3xl mx-auto flex items-start justify-between gap-4">
-          <div className="min-w-0">
-            <p className="text-stone-500 text-xs tracking-[0.15em] uppercase mb-2">{className} — {date}</p>
-            <EditInput
+          <div className="flex-1 min-w-0">
+            <p className="text-stone-500 text-xs tracking-[0.15em] uppercase mb-2 break-words">{className} — {date}</p>
+            <textarea
               value={data.theme || ''}
-              onChange={v => { setData(d => ({ ...d, theme: v })); setSaved(false); }}
+              onChange={e => { setData(d => ({ ...d, theme: e.target.value })); setSaved(false); }}
               placeholder="Theme"
-              className="font-serif text-3xl sm:text-4xl font-light text-stone-100 w-full"
+              rows={2}
+              className="font-serif text-3xl sm:text-4xl font-light text-stone-100 w-full bg-transparent border border-transparent rounded px-1 py-0.5 hover:border-stone-700 focus:border-stone-500 focus:outline-none focus:bg-stone-800 transition-colors resize-none"
             />
             <EditInput
               value={data.intention || ''}
