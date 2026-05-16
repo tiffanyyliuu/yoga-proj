@@ -36,15 +36,17 @@ export default async function ClassDetailPage({ params }) {
       </header>
 
       {/* Class hero */}
-      <div className="bg-stone-900 text-stone-100 px-8 py-12">
+      <div className="bg-stone-900 text-stone-100 px-6 sm:px-8 py-10 sm:py-12">
         <div className="max-w-3xl mx-auto">
-          <div className="flex items-start justify-between">
-            <div>
+          <div className="flex items-start justify-between gap-4">
+            <div className="min-w-0">
               <p className="text-stone-500 text-xs tracking-[0.15em] uppercase mb-3">{cls.level}</p>
-              <h1 className="font-serif text-5xl font-light">{cls.name}</h1>
+              <h1 className="font-serif text-3xl sm:text-5xl font-light break-words">{cls.name}</h1>
               {cls.size && <p className="text-stone-500 text-sm mt-3">{cls.size} students</p>}
             </div>
-            <DeleteClassButton classId={cls.id} className={cls.name} />
+            <div className="shrink-0 mt-1">
+              <DeleteClassButton classId={cls.id} className={cls.name} />
+            </div>
           </div>
 
           {(cls.vibe || cls.recurring_notes) && (
@@ -66,7 +68,7 @@ export default async function ClassDetailPage({ params }) {
         </div>
       </div>
 
-      <main className="max-w-3xl mx-auto px-6 py-12">
+      <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
         {/* Generate CTA */}
         <Link
           href={`/classes/${cls.id}/generate`}
@@ -101,20 +103,22 @@ export default async function ClassDetailPage({ params }) {
               <Link
                 key={seq.id}
                 href={`/classes/${cls.id}/sequences/${seq.id}`}
-                className="group flex items-center justify-between p-6 bg-white border border-stone-200 rounded-2xl hover:border-stone-400 hover:shadow-sm transition-all"
+                className="group block p-5 sm:p-6 bg-white border border-stone-200 rounded-2xl hover:border-stone-400 hover:shadow-sm transition-all"
               >
-                <div>
-                  <p className="font-serif text-xl font-light group-hover:text-stone-600 transition-colors">
-                    {seq.theme || 'Untitled sequence'}
-                  </p>
-                  {seq.intention && <p className="text-stone-400 text-sm mt-0.5">{seq.intention}</p>}
-                  {seq.after_class_notes && (
-                    <p className="text-stone-300 text-xs mt-2 line-clamp-1">Notes: {seq.after_class_notes}</p>
-                  )}
-                </div>
-                <div className="text-right shrink-0 ml-6">
-                  <p className="text-stone-400 text-xs">{date}</p>
-                  <p className="text-stone-300 text-xs mt-1 group-hover:text-stone-500 transition-colors">Edit →</p>
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <p className="font-serif text-xl font-light group-hover:text-stone-600 transition-colors truncate">
+                      {seq.theme || 'Untitled sequence'}
+                    </p>
+                    {seq.intention && <p className="text-stone-400 text-sm mt-0.5 line-clamp-2">{seq.intention}</p>}
+                    {seq.after_class_notes && (
+                      <p className="text-stone-300 text-xs mt-2 line-clamp-1">Notes: {seq.after_class_notes}</p>
+                    )}
+                  </div>
+                  <div className="text-right shrink-0">
+                    <p className="text-stone-400 text-xs">{date}</p>
+                    <p className="text-stone-300 text-xs mt-1 group-hover:text-stone-500 transition-colors">Edit →</p>
+                  </div>
                 </div>
               </Link>
             );
