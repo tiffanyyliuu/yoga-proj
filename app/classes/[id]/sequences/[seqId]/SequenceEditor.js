@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { updateSequence, deleteSequence } from './actions';
 import ThemeToggle from '../../../../components/ThemeToggle';
@@ -49,6 +49,14 @@ export default function SequenceEditor({ sequence, classId, className }) {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const themeRef = useRef(null);
+
+  useEffect(() => {
+    if (themeRef.current) {
+      themeRef.current.style.height = 'auto';
+      themeRef.current.style.height = themeRef.current.scrollHeight + 'px';
+    }
+  }, [data.theme]);
 
   const date = new Date(sequence.generated_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
@@ -120,11 +128,12 @@ export default function SequenceEditor({ sequence, classId, className }) {
           <div className="flex-1 min-w-0">
             <p className="text-stone-500 text-xs tracking-[0.15em] uppercase mb-2 break-words">{className} — {date}</p>
             <textarea
+              ref={themeRef}
               value={data.theme || ''}
               onChange={e => { setData(d => ({ ...d, theme: e.target.value })); setSaved(false); }}
               placeholder="Theme"
-              rows={2}
-              className="font-serif text-3xl sm:text-4xl font-light text-stone-100 w-full bg-transparent border border-transparent rounded px-1 py-0.5 hover:border-stone-700 focus:border-stone-500 focus:outline-none focus:bg-stone-800 transition-colors resize-none"
+              rows={1}
+              className="font-serif text-3xl sm:text-4xl font-light leading-snug text-stone-100 w-full bg-transparent border border-transparent rounded px-1 pt-0.5 pb-3 hover:border-stone-700 focus:border-stone-500 focus:outline-none focus:bg-stone-800 transition-colors resize-none overflow-hidden"
             />
             <EditInput
               value={data.intention || ''}

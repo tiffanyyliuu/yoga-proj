@@ -25,9 +25,9 @@ function SequencePreview({ data, className }) {
   const today = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
   return (
     <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-2xl overflow-hidden">
-      <div className="bg-stone-950 text-stone-100 px-6 py-7">
+      <div className="bg-stone-950 text-stone-100 px-6 pt-7 pb-9">
         <p className="text-stone-500 text-xs tracking-[0.15em] uppercase mb-4">{className} — {today}</p>
-        <h2 className="font-serif text-3xl font-light mb-1">{data.theme}</h2>
+        <h2 className="font-serif text-3xl font-light leading-snug mb-2">{data.theme}</h2>
         {data.intention && <p className="text-stone-400 text-sm">{data.intention}</p>}
       </div>
 
