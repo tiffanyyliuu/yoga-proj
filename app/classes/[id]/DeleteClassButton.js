@@ -11,7 +11,7 @@ export default function DeleteClassButton({ classId, className }) {
   return (
     <button
       onClick={handleDelete}
-      className="text-sm text-red-400 hover:text-red-600 transition-colors"
+      className="text-xs text-stone-600 border border-stone-700 px-4 py-2 rounded-full hover:border-red-500 hover:text-red-400 transition-colors"
     >
       Delete class
     </button>
