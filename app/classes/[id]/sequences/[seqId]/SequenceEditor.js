@@ -8,7 +8,7 @@ import ThemeToggle from '../../../../components/ThemeToggle';
 function EditInput({ value, onChange, placeholder, className: cx = '' }) {
   return (
     <input value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder}
-      className={`bg-transparent border border-transparent rounded px-1 py-0.5 hover:border-stone-200 dark:hover:border-stone-700 focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none focus:bg-white dark:focus:bg-stone-800 transition-colors ${cx}`} />
+      className={`bg-transparent border border-transparent rounded pl-0 pr-2 py-0.5 hover:border-stone-200 dark:hover:border-stone-700 focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none focus:bg-white dark:focus:bg-stone-800 transition-colors ${cx}`} />
   );
 }
 
@@ -133,7 +133,7 @@ export default function SequenceEditor({ sequence, classId, className }) {
               onChange={e => { setData(d => ({ ...d, theme: e.target.value })); setSaved(false); }}
               placeholder="Theme"
               rows={1}
-              className="font-serif text-3xl sm:text-4xl font-light leading-snug text-stone-100 w-full bg-transparent border border-transparent rounded px-1 pt-0.5 pb-3 hover:border-stone-700 focus:border-stone-500 focus:outline-none focus:bg-stone-800 transition-colors resize-none overflow-hidden"
+              className="font-serif text-3xl sm:text-4xl font-light leading-snug text-stone-100 w-full bg-transparent border border-transparent rounded pl-0 pr-2 pt-0.5 pb-3 hover:border-stone-700 focus:border-stone-500 focus:outline-none focus:bg-stone-800 transition-colors resize-none overflow-hidden"
             />
             <EditInput
               value={data.intention || ''}
