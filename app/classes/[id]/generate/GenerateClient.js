@@ -39,17 +39,12 @@ function SequencePreview({ data, className }) {
             </div>
             <div className="space-y-4">
               {section.poses?.map((pose, i) => (
-                <div key={i} className="flex gap-3">
-                  <span className="text-xs text-stone-300 w-20 shrink-0 pt-0.5 leading-5">{pose.start}–{pose.end}</span>
+                <div key={i} className="flex gap-4">
+                  <span className="text-xs text-stone-300 shrink-0 pt-0.5 whitespace-nowrap">{pose.start}–{pose.end}</span>
                   <div className="min-w-0">
-                    <span className="text-stone-800 text-sm font-medium">{pose.name}</span>
-                    {pose.reps && <span className="text-stone-400 ml-2 text-xs">{pose.reps}</span>}
-                    {pose.modification && (
-                      <p className="text-xs text-amber-600 mt-1">Mod — {pose.modification}</p>
-                    )}
-                    {pose.student_note && (
-                      <p className="text-xs text-stone-400 mt-0.5 italic">{pose.student_note}</p>
-                    )}
+                    <p className="text-stone-800 text-sm font-medium">{pose.name}{pose.reps && <span className="text-stone-400 text-xs font-normal ml-2">{pose.reps}</span>}</p>
+                    {pose.modification && <p className="text-xs text-amber-600 mt-1">Mod — {pose.modification}</p>}
+                    {pose.student_note && <p className="text-xs text-stone-400 mt-0.5 italic">{pose.student_note}</p>}
                   </div>
                 </div>
               ))}

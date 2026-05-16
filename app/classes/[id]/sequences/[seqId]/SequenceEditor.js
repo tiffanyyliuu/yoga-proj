@@ -15,19 +15,19 @@ function PoseRow({ pose, onChange, onRemove }) {
   function set(field, val) { onChange({ ...pose, [field]: val }); }
   return (
     <div className="flex gap-3 group py-1">
-      <span className="text-xs text-stone-300 w-20 shrink-0 pt-1 leading-5">
+      <span className="text-xs text-stone-300 shrink-0 pt-1 leading-5 whitespace-nowrap flex items-center gap-0.5">
         <input value={pose.start || ''} onChange={e => set('start', e.target.value)} placeholder="0:00"
-          className="w-9 bg-transparent border border-transparent rounded px-0.5 hover:border-stone-200 focus:border-stone-400 focus:outline-none focus:bg-white text-xs text-stone-400 transition-colors" />
+          className="w-12 bg-transparent border border-transparent rounded px-0.5 hover:border-stone-200 focus:border-stone-400 focus:outline-none focus:bg-white text-xs text-stone-400 transition-colors" />
         –
         <input value={pose.end || ''} onChange={e => set('end', e.target.value)} placeholder="2:00"
-          className="w-9 bg-transparent border border-transparent rounded px-0.5 hover:border-stone-200 focus:border-stone-400 focus:outline-none focus:bg-white text-xs text-stone-400 transition-colors" />
+          className="w-12 bg-transparent border border-transparent rounded px-0.5 hover:border-stone-200 focus:border-stone-400 focus:outline-none focus:bg-white text-xs text-stone-400 transition-colors" />
       </span>
       <div className="flex-1 min-w-0 space-y-0.5">
-        <div className="flex flex-wrap gap-2 items-baseline">
+        <div className="flex flex-wrap gap-x-2 gap-y-0.5 items-baseline">
           <input value={pose.name || ''} onChange={e => set('name', e.target.value)} placeholder="Pose name"
             className="flex-1 min-w-0 bg-transparent border border-transparent rounded px-1 py-0.5 hover:border-stone-200 focus:border-stone-400 focus:outline-none focus:bg-white text-sm font-medium text-stone-800 transition-colors" />
           <input value={pose.reps || ''} onChange={e => set('reps', e.target.value)} placeholder="×3"
-            className="w-10 bg-transparent border border-transparent rounded px-1 hover:border-stone-200 focus:border-stone-400 focus:outline-none focus:bg-white text-xs text-stone-400 transition-colors" />
+            className="w-14 shrink-0 bg-transparent border border-transparent rounded px-1 hover:border-stone-200 focus:border-stone-400 focus:outline-none focus:bg-white text-xs text-stone-400 transition-colors" />
         </div>
         <input value={pose.modification || ''} onChange={e => set('modification', e.target.value || null)} placeholder="Modification (optional)"
           className="w-full bg-transparent border border-transparent rounded px-1 py-0.5 hover:border-stone-200 focus:border-stone-400 focus:outline-none focus:bg-white text-xs text-amber-600 placeholder-stone-300 transition-colors" />
