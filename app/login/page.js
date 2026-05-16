@@ -16,8 +16,8 @@ export default function LoginPage({ searchParams }) {
       <div className="flex-1 flex items-center justify-center px-6 pb-12">
         <div className="w-full max-w-sm">
           <div className="mb-10">
-            <h1 className="font-serif text-4xl font-light text-stone-100 mb-2">Welcome back</h1>
-            <p className="text-stone-500 text-sm">Sign in to your account or create a new one.</p>
+            <h1 className="font-serif text-4xl font-light text-stone-100 mb-2">Welcome</h1>
+            <p className="text-stone-500 text-sm">Sign in or create an account to get started.</p>
           </div>
 
           {error && (
