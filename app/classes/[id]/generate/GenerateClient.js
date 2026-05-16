@@ -42,10 +42,10 @@ function SequencePreview({ data, className }) {
               {section.poses?.map((pose, i) => (
                 <div key={i} className="flex gap-4">
                   <span className="text-xs text-stone-300 dark:text-stone-600 shrink-0 pt-0.5 whitespace-nowrap">{pose.start}–{pose.end}</span>
-                  <div className="min-w-0">
-                    <p className="text-stone-800 dark:text-stone-200 text-sm font-medium">{pose.name}{pose.reps && <span className="text-stone-400 dark:text-stone-500 text-xs font-normal ml-2">{pose.reps}</span>}</p>
-                    {pose.modification && <p className="text-xs text-amber-600 dark:text-amber-500 mt-1">Mod — {pose.modification}</p>}
-                    {pose.student_note && <p className="text-xs text-stone-400 dark:text-stone-500 mt-0.5 italic">{pose.student_note}</p>}
+                  <div className="min-w-0 overflow-hidden">
+                    <p className="text-stone-800 dark:text-stone-200 text-sm font-medium break-words">{pose.name}{pose.reps && <span className="text-stone-400 dark:text-stone-500 text-xs font-normal ml-2">{pose.reps}</span>}</p>
+                    {pose.modification && <p className="text-xs text-amber-600 dark:text-amber-500 mt-1 break-words">Mod — {pose.modification}</p>}
+                    {pose.student_note && <p className="text-xs text-stone-400 dark:text-stone-500 mt-0.5 italic break-words">{pose.student_note}</p>}
                   </div>
                 </div>
               ))}

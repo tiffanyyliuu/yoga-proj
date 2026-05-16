@@ -23,7 +23,7 @@ function PoseRow({ pose, onChange, onRemove }) {
         <input value={pose.end || ''} onChange={e => set('end', e.target.value)} placeholder="2:00"
           className="w-12 bg-transparent border border-transparent rounded px-0.5 hover:border-stone-200 dark:hover:border-stone-700 focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none focus:bg-white dark:focus:bg-stone-800 text-xs text-stone-400 dark:text-stone-500 transition-colors" />
       </span>
-      <div className="flex-1 min-w-0 space-y-0.5">
+      <div className="flex-1 min-w-0 overflow-hidden space-y-0.5">
         <div className="flex flex-wrap gap-x-2 gap-y-0.5 items-baseline">
           <input value={pose.name || ''} onChange={e => set('name', e.target.value)} placeholder="Pose name"
             className="flex-1 min-w-0 bg-transparent border border-transparent rounded px-1 py-0.5 hover:border-stone-200 dark:hover:border-stone-700 focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none focus:bg-white dark:focus:bg-stone-800 text-sm font-medium text-stone-800 dark:text-stone-200 transition-colors" />
@@ -31,9 +31,9 @@ function PoseRow({ pose, onChange, onRemove }) {
             className="w-14 shrink-0 bg-transparent border border-transparent rounded px-1 hover:border-stone-200 dark:hover:border-stone-700 focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none focus:bg-white dark:focus:bg-stone-800 text-xs text-stone-400 dark:text-stone-500 transition-colors" />
         </div>
         <input value={pose.modification || ''} onChange={e => set('modification', e.target.value || null)} placeholder="Modification (optional)"
-          className="w-full bg-transparent border border-transparent rounded px-1 py-0.5 hover:border-stone-200 dark:hover:border-stone-700 focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none focus:bg-white dark:focus:bg-stone-800 text-xs text-amber-600 dark:text-amber-500 placeholder-stone-300 dark:placeholder-stone-600 transition-colors" />
+          className="w-full max-w-full bg-transparent border border-transparent rounded px-1 py-0.5 hover:border-stone-200 dark:hover:border-stone-700 focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none focus:bg-white dark:focus:bg-stone-800 text-xs text-amber-600 dark:text-amber-500 placeholder-stone-300 dark:placeholder-stone-600 transition-colors" />
         <input value={pose.student_note || ''} onChange={e => set('student_note', e.target.value || null)} placeholder="Student note (optional)"
-          className="w-full bg-transparent border border-transparent rounded px-1 py-0.5 hover:border-stone-200 dark:hover:border-stone-700 focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none focus:bg-white dark:focus:bg-stone-800 text-xs text-stone-400 dark:text-stone-500 italic placeholder-stone-300 dark:placeholder-stone-600 transition-colors" />
+          className="w-full max-w-full bg-transparent border border-transparent rounded px-1 py-0.5 hover:border-stone-200 dark:hover:border-stone-700 focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none focus:bg-white dark:focus:bg-stone-800 text-xs text-stone-400 dark:text-stone-500 italic placeholder-stone-300 dark:placeholder-stone-600 transition-colors" />
       </div>
       <button type="button" onClick={onRemove}
         className="opacity-0 group-hover:opacity-100 text-stone-300 dark:text-stone-600 hover:text-red-400 text-lg leading-none shrink-0 transition-opacity self-start mt-1">
