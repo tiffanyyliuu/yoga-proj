@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import ThemeToggle from '../../../components/ThemeToggle';
 
 const THEMES = ['Grounding', 'Heart Opening', 'Hip Focus', 'Backbends', 'Strength & Power', 'Balance & Focus', 'Twists', 'Restorative', 'Energy Boost'];
 const ENERGIES = ['Low — needs warming up', 'Medium — steady', 'High — ready to work'];
@@ -11,7 +12,9 @@ function Tag({ label, selected, onClick }) {
   return (
     <button type="button" onClick={onClick}
       className={`px-4 py-2 rounded-full text-sm border transition-colors ${
-        selected ? 'bg-stone-900 border-stone-900 text-white' : 'bg-white border-stone-200 text-stone-600 hover:border-stone-400'
+        selected
+          ? 'bg-stone-900 border-stone-900 text-white dark:bg-stone-100 dark:border-stone-100 dark:text-stone-900'
+          : 'bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-400 hover:border-stone-400 dark:hover:border-stone-500'
       }`}>
       {label}
     </button>
@@ -21,30 +24,28 @@ function Tag({ label, selected, onClick }) {
 function SequencePreview({ data, className }) {
   const today = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
   return (
-    <div className="bg-white border border-stone-200 rounded-2xl overflow-hidden">
-      {/* Dark header */}
+    <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-2xl overflow-hidden">
       <div className="bg-stone-950 text-stone-100 px-6 py-7">
         <p className="text-stone-500 text-xs tracking-[0.15em] uppercase mb-4">{className} — {today}</p>
         <h2 className="font-serif text-3xl font-light mb-1">{data.theme}</h2>
         {data.intention && <p className="text-stone-400 text-sm">{data.intention}</p>}
       </div>
 
-      {/* Sections */}
-      <div className="divide-y divide-stone-100">
+      <div className="divide-y divide-stone-100 dark:divide-stone-800">
         {data.sections?.map(section => (
           <div key={section.name} className="px-5 sm:px-7 py-6">
             <div className="flex items-baseline justify-between mb-4">
-              <h3 className="font-serif text-lg font-light text-stone-700">{section.name}</h3>
-              <span className="text-stone-300 text-xs ml-4 shrink-0">{section.duration_min} min</span>
+              <h3 className="font-serif text-lg font-light text-stone-700 dark:text-stone-300">{section.name}</h3>
+              <span className="text-stone-300 dark:text-stone-600 text-xs ml-4 shrink-0">{section.duration_min} min</span>
             </div>
             <div className="space-y-4">
               {section.poses?.map((pose, i) => (
                 <div key={i} className="flex gap-4">
-                  <span className="text-xs text-stone-300 shrink-0 pt-0.5 whitespace-nowrap">{pose.start}–{pose.end}</span>
+                  <span className="text-xs text-stone-300 dark:text-stone-600 shrink-0 pt-0.5 whitespace-nowrap">{pose.start}–{pose.end}</span>
                   <div className="min-w-0">
-                    <p className="text-stone-800 text-sm font-medium">{pose.name}{pose.reps && <span className="text-stone-400 text-xs font-normal ml-2">{pose.reps}</span>}</p>
-                    {pose.modification && <p className="text-xs text-amber-600 mt-1">Mod — {pose.modification}</p>}
-                    {pose.student_note && <p className="text-xs text-stone-400 mt-0.5 italic">{pose.student_note}</p>}
+                    <p className="text-stone-800 dark:text-stone-200 text-sm font-medium">{pose.name}{pose.reps && <span className="text-stone-400 dark:text-stone-500 text-xs font-normal ml-2">{pose.reps}</span>}</p>
+                    {pose.modification && <p className="text-xs text-amber-600 dark:text-amber-500 mt-1">Mod — {pose.modification}</p>}
+                    {pose.student_note && <p className="text-xs text-stone-400 dark:text-stone-500 mt-0.5 italic">{pose.student_note}</p>}
                   </div>
                 </div>
               ))}
@@ -53,11 +54,10 @@ function SequencePreview({ data, className }) {
         ))}
       </div>
 
-      {/* Closing note */}
       {data.closing_note && (
-        <div className="border-t border-stone-100 px-5 sm:px-7 py-6 bg-stone-50">
-          <p className="text-xs text-stone-400 uppercase tracking-widest mb-2">Why this sequence</p>
-          <p className="text-sm text-stone-500 leading-relaxed">{data.closing_note}</p>
+        <div className="border-t border-stone-100 dark:border-stone-800 px-5 sm:px-7 py-6 bg-stone-50 dark:bg-stone-800">
+          <p className="text-xs text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-2">Why this sequence</p>
+          <p className="text-sm text-stone-500 dark:text-stone-400 leading-relaxed">{data.closing_note}</p>
         </div>
       )}
     </div>
@@ -104,10 +104,13 @@ export default function GenerateClient({ classId, className }) {
   }
 
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="min-h-screen bg-stone-50 dark:bg-stone-950">
       <header className="bg-stone-950 text-stone-100 px-6 sm:px-8 py-5 flex items-center justify-between">
         <Link href="/dashboard" className="font-serif text-xl tracking-wide">Sequence</Link>
-        <Link href={`/classes/${classId}`} className="text-stone-500 hover:text-stone-300 text-sm transition-colors">← Back</Link>
+        <div className="flex items-center gap-4">
+          <ThemeToggle className="text-stone-500 hover:text-stone-300" />
+          <Link href={`/classes/${classId}`} className="text-stone-500 hover:text-stone-300 text-sm transition-colors">← Back</Link>
+        </div>
       </header>
 
       <div className="bg-stone-900 text-stone-100 px-6 sm:px-8 py-10">
@@ -121,24 +124,24 @@ export default function GenerateClient({ classId, className }) {
         {!result && !loading && (
           <div className="space-y-10">
             <div>
-              <p className="text-xs font-semibold tracking-widest text-stone-400 uppercase mb-4">Theme for today</p>
+              <p className="text-xs font-semibold tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-4">Theme for today</p>
               <div className="flex flex-wrap gap-2">
                 {THEMES.map(t => <Tag key={t} label={t} selected={theme === t} onClick={() => setTheme(theme === t ? '' : t)} />)}
               </div>
             </div>
             <div>
-              <p className="text-xs font-semibold tracking-widest text-stone-400 uppercase mb-4">Group energy</p>
+              <p className="text-xs font-semibold tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-4">Group energy</p>
               <div className="flex flex-wrap gap-2">
                 {ENERGIES.map(e => <Tag key={e} label={e} selected={energy === e} onClick={() => setEnergy(energy === e ? '' : e)} />)}
               </div>
             </div>
             <div>
-              <p className="text-xs font-semibold tracking-widest text-stone-400 uppercase mb-4">Anything special today?</p>
+              <p className="text-xs font-semibold tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-4">Anything special today?</p>
               <div className="flex flex-wrap gap-2 mb-4">
                 {SPECIALS.map(s => <Tag key={s} label={s} selected={specials.includes(s)} onClick={() => toggleSpecial(s)} />)}
               </div>
               <input value={customNote} onChange={e => setCustomNote(e.target.value)} placeholder="Other notes..."
-                className="w-full px-4 py-3 bg-white border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-stone-400 transition-colors" />
+                className="w-full px-4 py-3 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl text-sm text-stone-900 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-600 focus:outline-none focus:border-stone-400 dark:focus:border-stone-500 transition-colors" />
             </div>
             <button onClick={handleGenerate}
               className="px-8 py-3.5 bg-stone-950 text-white text-sm rounded-full hover:bg-stone-800 transition-colors font-medium">
@@ -149,25 +152,25 @@ export default function GenerateClient({ classId, className }) {
 
         {loading && (
           <div className="flex flex-col items-center justify-center py-32 text-stone-400">
-            <div className="w-8 h-8 border-2 border-stone-200 border-t-stone-600 rounded-full animate-spin mb-6" />
+            <div className="w-8 h-8 border-2 border-stone-200 dark:border-stone-700 border-t-stone-600 rounded-full animate-spin mb-6" />
             <p className="font-serif text-xl font-light">Crafting your sequence…</p>
-            <p className="text-stone-400 text-sm mt-2">This takes about 30 seconds</p>
+            <p className="text-stone-400 dark:text-stone-500 text-sm mt-2">This takes about 30 seconds</p>
           </div>
         )}
 
-        {error && <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm">{error}</div>}
+        {error && <div className="bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-300 px-4 py-3 rounded-xl text-sm">{error}</div>}
 
         {result && (
           <>
             <div className="flex items-center justify-between mb-6">
-              <p className="text-stone-400 text-sm">Saved to your class.</p>
+              <p className="text-stone-400 dark:text-stone-500 text-sm">Saved to your class.</p>
               <Link href={`/classes/${classId}/sequences/${result.id}`}
-                className="px-5 py-2 border border-stone-300 text-stone-700 text-sm rounded-full hover:border-stone-500 transition-colors">
+                className="px-5 py-2 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 text-sm rounded-full hover:border-stone-500 dark:hover:border-stone-400 transition-colors">
                 Edit / add notes →
               </Link>
             </div>
             <SequencePreview data={result} className={className} />
-            <button onClick={() => setResult(null)} className="mt-8 text-sm text-stone-400 hover:text-stone-600 transition-colors">
+            <button onClick={() => setResult(null)} className="mt-8 text-sm text-stone-400 hover:text-stone-600 dark:hover:text-stone-300 transition-colors">
               ← Generate another
             </button>
           </>

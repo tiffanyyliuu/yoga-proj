@@ -3,11 +3,12 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { updateSequence, deleteSequence } from './actions';
+import ThemeToggle from '../../../../components/ThemeToggle';
 
 function EditInput({ value, onChange, placeholder, className: cx = '' }) {
   return (
     <input value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder}
-      className={`bg-transparent border border-transparent rounded px-1 py-0.5 hover:border-stone-200 focus:border-stone-400 focus:outline-none focus:bg-white transition-colors ${cx}`} />
+      className={`bg-transparent border border-transparent rounded px-1 py-0.5 hover:border-stone-200 dark:hover:border-stone-700 focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none focus:bg-white dark:focus:bg-stone-800 transition-colors ${cx}`} />
   );
 }
 
@@ -15,27 +16,27 @@ function PoseRow({ pose, onChange, onRemove }) {
   function set(field, val) { onChange({ ...pose, [field]: val }); }
   return (
     <div className="flex gap-3 group py-1">
-      <span className="text-xs text-stone-300 shrink-0 pt-1 leading-5 whitespace-nowrap flex items-center gap-0.5">
+      <span className="text-xs text-stone-300 dark:text-stone-600 shrink-0 pt-1 leading-5 whitespace-nowrap flex items-center gap-0.5">
         <input value={pose.start || ''} onChange={e => set('start', e.target.value)} placeholder="0:00"
-          className="w-12 bg-transparent border border-transparent rounded px-0.5 hover:border-stone-200 focus:border-stone-400 focus:outline-none focus:bg-white text-xs text-stone-400 transition-colors" />
+          className="w-12 bg-transparent border border-transparent rounded px-0.5 hover:border-stone-200 dark:hover:border-stone-700 focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none focus:bg-white dark:focus:bg-stone-800 text-xs text-stone-400 dark:text-stone-500 transition-colors" />
         –
         <input value={pose.end || ''} onChange={e => set('end', e.target.value)} placeholder="2:00"
-          className="w-12 bg-transparent border border-transparent rounded px-0.5 hover:border-stone-200 focus:border-stone-400 focus:outline-none focus:bg-white text-xs text-stone-400 transition-colors" />
+          className="w-12 bg-transparent border border-transparent rounded px-0.5 hover:border-stone-200 dark:hover:border-stone-700 focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none focus:bg-white dark:focus:bg-stone-800 text-xs text-stone-400 dark:text-stone-500 transition-colors" />
       </span>
       <div className="flex-1 min-w-0 space-y-0.5">
         <div className="flex flex-wrap gap-x-2 gap-y-0.5 items-baseline">
           <input value={pose.name || ''} onChange={e => set('name', e.target.value)} placeholder="Pose name"
-            className="flex-1 min-w-0 bg-transparent border border-transparent rounded px-1 py-0.5 hover:border-stone-200 focus:border-stone-400 focus:outline-none focus:bg-white text-sm font-medium text-stone-800 transition-colors" />
+            className="flex-1 min-w-0 bg-transparent border border-transparent rounded px-1 py-0.5 hover:border-stone-200 dark:hover:border-stone-700 focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none focus:bg-white dark:focus:bg-stone-800 text-sm font-medium text-stone-800 dark:text-stone-200 transition-colors" />
           <input value={pose.reps || ''} onChange={e => set('reps', e.target.value)} placeholder="×3"
-            className="w-14 shrink-0 bg-transparent border border-transparent rounded px-1 hover:border-stone-200 focus:border-stone-400 focus:outline-none focus:bg-white text-xs text-stone-400 transition-colors" />
+            className="w-14 shrink-0 bg-transparent border border-transparent rounded px-1 hover:border-stone-200 dark:hover:border-stone-700 focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none focus:bg-white dark:focus:bg-stone-800 text-xs text-stone-400 dark:text-stone-500 transition-colors" />
         </div>
         <input value={pose.modification || ''} onChange={e => set('modification', e.target.value || null)} placeholder="Modification (optional)"
-          className="w-full bg-transparent border border-transparent rounded px-1 py-0.5 hover:border-stone-200 focus:border-stone-400 focus:outline-none focus:bg-white text-xs text-amber-600 placeholder-stone-300 transition-colors" />
+          className="w-full bg-transparent border border-transparent rounded px-1 py-0.5 hover:border-stone-200 dark:hover:border-stone-700 focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none focus:bg-white dark:focus:bg-stone-800 text-xs text-amber-600 dark:text-amber-500 placeholder-stone-300 dark:placeholder-stone-600 transition-colors" />
         <input value={pose.student_note || ''} onChange={e => set('student_note', e.target.value || null)} placeholder="Student note (optional)"
-          className="w-full bg-transparent border border-transparent rounded px-1 py-0.5 hover:border-stone-200 focus:border-stone-400 focus:outline-none focus:bg-white text-xs text-stone-400 italic placeholder-stone-300 transition-colors" />
+          className="w-full bg-transparent border border-transparent rounded px-1 py-0.5 hover:border-stone-200 dark:hover:border-stone-700 focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none focus:bg-white dark:focus:bg-stone-800 text-xs text-stone-400 dark:text-stone-500 italic placeholder-stone-300 dark:placeholder-stone-600 transition-colors" />
       </div>
       <button type="button" onClick={onRemove}
-        className="opacity-0 group-hover:opacity-100 text-stone-300 hover:text-red-400 text-lg leading-none shrink-0 transition-opacity self-start mt-1">
+        className="opacity-0 group-hover:opacity-100 text-stone-300 dark:text-stone-600 hover:text-red-400 text-lg leading-none shrink-0 transition-opacity self-start mt-1">
         ×
       </button>
     </div>
@@ -105,13 +106,15 @@ export default function SequenceEditor({ sequence, classId, className }) {
   }
 
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="min-h-screen bg-stone-50 dark:bg-stone-950">
       <header className="bg-stone-950 text-stone-100 px-6 sm:px-8 py-5 flex items-center justify-between">
         <Link href="/dashboard" className="font-serif text-xl tracking-wide">Sequence</Link>
-        <Link href={`/classes/${classId}`} className="text-stone-500 hover:text-stone-300 text-sm transition-colors">← Back</Link>
+        <div className="flex items-center gap-4">
+          <ThemeToggle className="text-stone-500 hover:text-stone-300" />
+          <Link href={`/classes/${classId}`} className="text-stone-500 hover:text-stone-300 text-sm transition-colors">← Back</Link>
+        </div>
       </header>
 
-      {/* Hero */}
       <div className="bg-stone-900 text-stone-100 px-6 sm:px-8 py-10">
         <div className="max-w-3xl mx-auto flex items-start justify-between gap-4">
           <div className="min-w-0">
@@ -144,19 +147,18 @@ export default function SequenceEditor({ sequence, classId, className }) {
       </div>
 
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-4">
-        {/* Sequence card */}
-        <div className="bg-white border border-stone-200 rounded-2xl overflow-hidden">
-          <div className="divide-y divide-stone-100">
+        <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-2xl overflow-hidden">
+          <div className="divide-y divide-stone-100 dark:divide-stone-800">
             {data.sections?.map((section, si) => (
               <div key={si} className="px-5 sm:px-7 py-6">
                 <div className="flex items-baseline justify-between mb-4 group">
                   <div className="flex items-baseline gap-3 flex-1 min-w-0">
                     <input value={section.name || ''} onChange={e => updateSection(si, 'name', e.target.value)}
-                      className="font-serif text-lg font-light text-stone-700 bg-transparent border border-transparent rounded px-1 hover:border-stone-200 focus:border-stone-400 focus:outline-none focus:bg-white min-w-0 transition-colors" />
+                      className="font-serif text-lg font-light text-stone-700 dark:text-stone-300 bg-transparent border border-transparent rounded px-1 hover:border-stone-200 dark:hover:border-stone-700 focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none focus:bg-white dark:focus:bg-stone-800 min-w-0 transition-colors" />
                     <div className="flex items-center gap-1 shrink-0">
                       <input type="number" value={section.duration_min || ''} onChange={e => updateSection(si, 'duration_min', parseInt(e.target.value) || 0)}
-                        className="w-8 text-xs text-stone-300 text-right bg-transparent border border-transparent rounded hover:border-stone-200 focus:border-stone-400 focus:outline-none focus:bg-white transition-colors" />
-                      <span className="text-xs text-stone-300">min</span>
+                        className="w-8 text-xs text-stone-300 dark:text-stone-600 text-right bg-transparent border border-transparent rounded hover:border-stone-200 dark:hover:border-stone-700 focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none focus:bg-white dark:focus:bg-stone-800 transition-colors" />
+                      <span className="text-xs text-stone-300 dark:text-stone-600">min</span>
                     </div>
                   </div>
                   <button type="button" onClick={() => removeSection(si)}
@@ -165,12 +167,12 @@ export default function SequenceEditor({ sequence, classId, className }) {
                   </button>
                 </div>
 
-                <div className="border-t border-stone-100 pt-4 space-y-1">
+                <div className="border-t border-stone-100 dark:border-stone-800 pt-4 space-y-1">
                   {section.poses?.map((pose, pi) => (
                     <PoseRow key={pi} pose={pose} onChange={p => updatePose(si, pi, p)} onRemove={() => removePose(si, pi)} />
                   ))}
                   <button type="button" onClick={() => addPose(si)}
-                    className="text-xs text-stone-300 hover:text-stone-500 mt-2 transition-colors">
+                    className="text-xs text-stone-300 dark:text-stone-600 hover:text-stone-500 dark:hover:text-stone-400 mt-2 transition-colors">
                     + Add pose
                   </button>
                 </div>
@@ -180,30 +182,28 @@ export default function SequenceEditor({ sequence, classId, className }) {
 
           <div className="px-5 sm:px-7 pb-5">
             <button type="button" onClick={addSection}
-              className="w-full py-3 border border-dashed border-stone-200 rounded-xl text-sm text-stone-400 hover:border-stone-400 hover:text-stone-600 transition-colors">
+              className="w-full py-3 border border-dashed border-stone-200 dark:border-stone-700 rounded-xl text-sm text-stone-400 dark:text-stone-500 hover:border-stone-400 dark:hover:border-stone-500 hover:text-stone-600 dark:hover:text-stone-400 transition-colors">
               + Add section
             </button>
           </div>
 
-          {/* Why this sequence */}
-          <div className="border-t border-stone-100 bg-stone-50 px-5 sm:px-7 py-6">
-            <p className="text-xs text-stone-400 uppercase tracking-widest mb-2">Why this sequence</p>
+          <div className="border-t border-stone-100 dark:border-stone-800 bg-stone-50 dark:bg-stone-800 px-5 sm:px-7 py-6">
+            <p className="text-xs text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-2">Why this sequence</p>
             <textarea
               value={data.closing_note || ''}
               onChange={e => { setData(d => ({ ...d, closing_note: e.target.value })); setSaved(false); }}
               placeholder="Notes on why this sequence was chosen..."
               rows={2}
-              className="w-full text-sm text-stone-500 leading-relaxed bg-transparent border border-transparent rounded hover:border-stone-200 focus:border-stone-400 focus:outline-none focus:bg-white resize-none px-1 py-0.5 transition-colors"
+              className="w-full text-sm text-stone-500 dark:text-stone-400 leading-relaxed bg-transparent border border-transparent rounded hover:border-stone-200 dark:hover:border-stone-700 focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none focus:bg-white dark:focus:bg-stone-700 resize-none px-1 py-0.5 transition-colors"
             />
           </div>
         </div>
 
-        {/* After class notes */}
-        <div className="bg-white border border-stone-200 rounded-2xl px-5 sm:px-7 py-6">
-          <p className="text-xs text-stone-400 uppercase tracking-widest mb-3">After class notes</p>
+        <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-2xl px-5 sm:px-7 py-6">
+          <p className="text-xs text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-3">After class notes</p>
           <textarea value={notes} onChange={e => { setNotes(e.target.value); setSaved(false); }} rows={4}
             placeholder="How did it go? What worked, what to change next time, student feedback..."
-            className="w-full text-sm text-stone-600 bg-transparent border border-transparent rounded-lg hover:border-stone-200 focus:border-stone-400 focus:outline-none resize-none px-2 py-1 transition-colors" />
+            className="w-full text-sm text-stone-600 dark:text-stone-400 bg-transparent border border-transparent rounded-lg hover:border-stone-200 dark:hover:border-stone-700 focus:border-stone-400 dark:focus:border-stone-500 focus:outline-none resize-none px-2 py-1 transition-colors" />
         </div>
 
         <div className="flex justify-end pb-4">

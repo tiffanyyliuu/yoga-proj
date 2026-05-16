@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { createClass } from './actions';
+import ThemeToggle from '../../components/ThemeToggle';
 
 const LEVEL_OPTIONS = ['All Levels', 'Beginner-friendly', 'Mixed', 'Intermediate', 'Advanced'];
 const VIBE_OPTIONS = ['Social / Chatty', 'Focused & Quiet', 'Athletic', 'Spiritual', 'Relaxed Pace', 'High Energy'];
@@ -15,8 +16,8 @@ function Tag({ label, selected, onClick }) {
       onClick={onClick}
       className={`px-4 py-2 rounded-full text-sm border transition-colors ${
         selected
-          ? 'bg-stone-900 border-stone-900 text-white'
-          : 'bg-white border-stone-200 text-stone-600 hover:border-stone-400'
+          ? 'bg-stone-900 border-stone-900 text-white dark:bg-stone-100 dark:border-stone-100 dark:text-stone-900'
+          : 'bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-400 hover:border-stone-400 dark:hover:border-stone-500'
       }`}
     >
       {label}
@@ -50,12 +51,15 @@ export default function NewClassPage() {
   }
 
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="min-h-screen bg-stone-50 dark:bg-stone-950">
       <header className="bg-stone-950 text-stone-100 px-8 py-5 flex items-center justify-between">
         <Link href="/dashboard" className="font-serif text-xl tracking-wide">Sequence</Link>
-        <Link href="/dashboard" className="text-stone-500 hover:text-stone-300 text-sm transition-colors">
-          ← Dashboard
-        </Link>
+        <div className="flex items-center gap-4">
+          <ThemeToggle className="text-stone-500 hover:text-stone-300" />
+          <Link href="/dashboard" className="text-stone-500 hover:text-stone-300 text-sm transition-colors">
+            ← Dashboard
+          </Link>
+        </div>
       </header>
 
       <div className="bg-stone-900 text-stone-100 px-8 py-10">
@@ -68,18 +72,18 @@ export default function NewClassPage() {
       <main className="max-w-2xl mx-auto px-6 py-12">
         <form onSubmit={handleSubmit} className="space-y-10">
           <div>
-            <label className="block text-xs font-semibold tracking-widest text-stone-400 uppercase mb-3">Class name</label>
+            <label className="block text-xs font-semibold tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-3">Class name</label>
             <input
               value={name}
               onChange={e => setName(e.target.value)}
               required
               placeholder='e.g. "Tuesday 6pm Vinyasa"'
-              className="w-full px-4 py-3 bg-white border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-stone-400 transition-colors"
+              className="w-full px-4 py-3 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl text-sm text-stone-900 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-600 focus:outline-none focus:border-stone-400 dark:focus:border-stone-500 transition-colors"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold tracking-widest text-stone-400 uppercase mb-3">Level</label>
+            <label className="block text-xs font-semibold tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-3">Level</label>
             <div className="flex flex-wrap gap-2">
               {LEVEL_OPTIONS.map(opt => (
                 <Tag key={opt} label={opt} selected={level === opt} onClick={() => setLevel(level === opt ? '' : opt)} />
@@ -88,19 +92,19 @@ export default function NewClassPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold tracking-widest text-stone-400 uppercase mb-3">Typical class size</label>
+            <label className="block text-xs font-semibold tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-3">Typical class size</label>
             <input
               type="number"
               value={size}
               onChange={e => setSize(e.target.value)}
               min="1"
               placeholder="e.g. 12"
-              className="w-32 px-4 py-3 bg-white border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-stone-400 transition-colors"
+              className="w-32 px-4 py-3 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl text-sm text-stone-900 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-600 focus:outline-none focus:border-stone-400 dark:focus:border-stone-500 transition-colors"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold tracking-widest text-stone-400 uppercase mb-3">Vibe of this group</label>
+            <label className="block text-xs font-semibold tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-3">Vibe of this group</label>
             <div className="flex flex-wrap gap-2">
               {VIBE_OPTIONS.map(opt => (
                 <Tag key={opt} label={opt} selected={vibes.includes(opt)} onClick={() => toggleVibe(opt)} />
@@ -109,7 +113,7 @@ export default function NewClassPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold tracking-widest text-stone-400 uppercase mb-3">Recurring student needs / injuries</label>
+            <label className="block text-xs font-semibold tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-3">Recurring student needs / injuries</label>
             <div className="flex flex-wrap gap-2 mb-3">
               {INJURY_OPTIONS.map(opt => (
                 <Tag key={opt} label={opt} selected={injuries.includes(opt)} onClick={() => toggleInjury(opt)} />
@@ -119,7 +123,7 @@ export default function NewClassPage() {
               value={customNote}
               onChange={e => setCustomNote(e.target.value)}
               placeholder="Anything else..."
-              className="w-full px-4 py-3 bg-white border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-stone-400 transition-colors"
+              className="w-full px-4 py-3 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl text-sm text-stone-900 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-600 focus:outline-none focus:border-stone-400 dark:focus:border-stone-500 transition-colors"
             />
           </div>
 
@@ -133,7 +137,7 @@ export default function NewClassPage() {
             </button>
             <Link
               href="/dashboard"
-              className="px-8 py-3 border border-stone-300 text-stone-600 text-sm rounded-full hover:border-stone-500 transition-colors"
+              className="px-8 py-3 border border-stone-300 dark:border-stone-700 text-stone-600 dark:text-stone-400 text-sm rounded-full hover:border-stone-500 dark:hover:border-stone-500 transition-colors"
             >
               Cancel
             </Link>
