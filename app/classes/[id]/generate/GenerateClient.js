@@ -9,15 +9,10 @@ const SPECIALS = ['New student(s)', 'Injury mentioned today', 'Post-holiday / lo
 
 function Tag({ label, selected, onClick }) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
+    <button type="button" onClick={onClick}
       className={`px-4 py-2 rounded-full text-sm border transition-colors ${
-        selected
-          ? 'bg-stone-900 border-stone-900 text-white'
-          : 'bg-white border-stone-200 text-stone-600 hover:border-stone-400'
-      }`}
-    >
+        selected ? 'bg-stone-900 border-stone-900 text-white' : 'bg-white border-stone-200 text-stone-600 hover:border-stone-400'
+      }`}>
       {label}
     </button>
   );
@@ -27,36 +22,34 @@ function SequencePreview({ data, className }) {
   const today = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
   return (
     <div className="bg-white border border-stone-200 rounded-2xl overflow-hidden">
-      <div className="bg-stone-950 text-stone-100 px-6 py-6">
-        <p className="text-stone-500 text-xs tracking-[0.15em] uppercase mb-3">{className} — {today}</p>
-        <div className="space-y-1">
-          <div className="flex gap-3 text-sm">
-            <span className="text-stone-500 w-20 shrink-0">Theme</span>
-            <span className="text-stone-200">→ {data.theme}</span>
-          </div>
-          <div className="flex gap-3 text-sm">
-            <span className="text-stone-500 w-20 shrink-0">Intention</span>
-            <span className="text-stone-200">→ {data.intention}</span>
-          </div>
-        </div>
+      {/* Dark header */}
+      <div className="bg-stone-950 text-stone-100 px-6 py-7">
+        <p className="text-stone-500 text-xs tracking-[0.15em] uppercase mb-4">{className} — {today}</p>
+        <h2 className="font-serif text-3xl font-light mb-1">{data.theme}</h2>
+        {data.intention && <p className="text-stone-400 text-sm">{data.intention}</p>}
       </div>
 
+      {/* Sections */}
       <div className="divide-y divide-stone-100">
         {data.sections?.map(section => (
-          <div key={section.name} className="px-6 py-5">
-            <div className="flex items-baseline justify-between mb-3">
-              <h3 className="text-xs font-semibold tracking-widest text-stone-400 uppercase">{section.name}</h3>
-              <span className="text-xs text-stone-300">{section.duration_min} min</span>
+          <div key={section.name} className="px-5 sm:px-7 py-6">
+            <div className="flex items-baseline justify-between mb-4">
+              <h3 className="font-serif text-lg font-light text-stone-700">{section.name}</h3>
+              <span className="text-stone-300 text-xs ml-4 shrink-0">{section.duration_min} min</span>
             </div>
-            <div className="border-t border-stone-100 pt-3 space-y-3">
+            <div className="space-y-4">
               {section.poses?.map((pose, i) => (
-                <div key={i} className="flex gap-4 text-sm">
-                  <span className="font-mono text-xs text-stone-300 w-24 shrink-0 pt-0.5">{pose.start}–{pose.end}</span>
-                  <div>
-                    <span className="text-stone-800 font-medium">{pose.name}</span>
+                <div key={i} className="flex gap-3">
+                  <span className="text-xs text-stone-300 w-20 shrink-0 pt-0.5 leading-5">{pose.start}–{pose.end}</span>
+                  <div className="min-w-0">
+                    <span className="text-stone-800 text-sm font-medium">{pose.name}</span>
                     {pose.reps && <span className="text-stone-400 ml-2 text-xs">{pose.reps}</span>}
-                    {pose.modification && <p className="text-xs text-amber-600 mt-0.5">✦ Mod: {pose.modification}</p>}
-                    {pose.student_note && <p className="text-xs text-blue-500 mt-0.5">✦ {pose.student_note}</p>}
+                    {pose.modification && (
+                      <p className="text-xs text-amber-600 mt-1">Mod — {pose.modification}</p>
+                    )}
+                    {pose.student_note && (
+                      <p className="text-xs text-stone-400 mt-0.5 italic">{pose.student_note}</p>
+                    )}
                   </div>
                 </div>
               ))}
@@ -65,9 +58,10 @@ function SequencePreview({ data, className }) {
         ))}
       </div>
 
+      {/* Closing note */}
       {data.closing_note && (
-        <div className="border-t border-stone-200 bg-stone-50 px-6 py-5">
-          <p className="text-xs font-semibold tracking-widest text-stone-400 uppercase mb-2">Why this sequence</p>
+        <div className="border-t border-stone-100 px-5 sm:px-7 py-6 bg-stone-50">
+          <p className="text-xs text-stone-400 uppercase tracking-widest mb-2">Why this sequence</p>
           <p className="text-sm text-stone-500 leading-relaxed">{data.closing_note}</p>
         </div>
       )}
@@ -92,7 +86,6 @@ export default function GenerateClient({ classId, className }) {
     setLoading(true);
     setResult(null);
     setError('');
-
     const contextParts = [
       theme && `Theme: ${theme}`,
       energy && `Group energy: ${energy}`,
@@ -106,35 +99,30 @@ export default function GenerateClient({ classId, className }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ classId, context: contextParts.join('. ') }),
       });
-
       if (!res.ok) { setError('Something went wrong. Try again.'); setLoading(false); return; }
-
       const data = await res.json();
       setResult(data);
     } catch {
       setError('Something went wrong. Try again.');
     }
-
     setLoading(false);
   }
 
   return (
     <div className="min-h-screen bg-stone-50">
-      <header className="bg-stone-950 text-stone-100 px-8 py-5 flex items-center justify-between">
+      <header className="bg-stone-950 text-stone-100 px-6 sm:px-8 py-5 flex items-center justify-between">
         <Link href="/dashboard" className="font-serif text-xl tracking-wide">Sequence</Link>
-        <Link href={`/classes/${classId}`} className="text-stone-500 hover:text-stone-300 text-sm transition-colors">
-          ← Back to class
-        </Link>
+        <Link href={`/classes/${classId}`} className="text-stone-500 hover:text-stone-300 text-sm transition-colors">← Back</Link>
       </header>
 
-      <div className="bg-stone-900 text-stone-100 px-8 py-10">
+      <div className="bg-stone-900 text-stone-100 px-6 sm:px-8 py-10">
         <div className="max-w-3xl mx-auto">
           <p className="text-stone-500 text-xs tracking-[0.15em] uppercase mb-2">{className}</p>
-          <h1 className="font-serif text-4xl font-light">Generate sequence</h1>
+          <h1 className="font-serif text-3xl sm:text-4xl font-light">Generate sequence</h1>
         </div>
       </div>
 
-      <main className="max-w-3xl mx-auto px-6 py-12">
+      <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
         {!result && !loading && (
           <div className="space-y-10">
             <div>
@@ -143,31 +131,22 @@ export default function GenerateClient({ classId, className }) {
                 {THEMES.map(t => <Tag key={t} label={t} selected={theme === t} onClick={() => setTheme(theme === t ? '' : t)} />)}
               </div>
             </div>
-
             <div>
               <p className="text-xs font-semibold tracking-widest text-stone-400 uppercase mb-4">Group energy</p>
               <div className="flex flex-wrap gap-2">
                 {ENERGIES.map(e => <Tag key={e} label={e} selected={energy === e} onClick={() => setEnergy(energy === e ? '' : e)} />)}
               </div>
             </div>
-
             <div>
               <p className="text-xs font-semibold tracking-widest text-stone-400 uppercase mb-4">Anything special today?</p>
               <div className="flex flex-wrap gap-2 mb-4">
                 {SPECIALS.map(s => <Tag key={s} label={s} selected={specials.includes(s)} onClick={() => toggleSpecial(s)} />)}
               </div>
-              <input
-                value={customNote}
-                onChange={e => setCustomNote(e.target.value)}
-                placeholder="Other notes..."
-                className="w-full px-4 py-3 bg-white border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-stone-400 transition-colors"
-              />
+              <input value={customNote} onChange={e => setCustomNote(e.target.value)} placeholder="Other notes..."
+                className="w-full px-4 py-3 bg-white border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-stone-400 transition-colors" />
             </div>
-
-            <button
-              onClick={handleGenerate}
-              className="px-8 py-3.5 bg-stone-950 text-white text-sm rounded-full hover:bg-stone-800 transition-colors font-medium"
-            >
+            <button onClick={handleGenerate}
+              className="px-8 py-3.5 bg-stone-950 text-white text-sm rounded-full hover:bg-stone-800 transition-colors font-medium">
               Generate sequence
             </button>
           </div>
@@ -181,26 +160,19 @@ export default function GenerateClient({ classId, className }) {
           </div>
         )}
 
-        {error && (
-          <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm">{error}</div>
-        )}
+        {error && <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm">{error}</div>}
 
         {result && (
           <>
             <div className="flex items-center justify-between mb-6">
               <p className="text-stone-400 text-sm">Saved to your class.</p>
-              <Link
-                href={`/classes/${classId}/sequences/${result.id}`}
-                className="px-5 py-2 border border-stone-300 text-stone-700 text-sm rounded-full hover:border-stone-500 transition-colors"
-              >
+              <Link href={`/classes/${classId}/sequences/${result.id}`}
+                className="px-5 py-2 border border-stone-300 text-stone-700 text-sm rounded-full hover:border-stone-500 transition-colors">
                 Edit / add notes →
               </Link>
             </div>
             <SequencePreview data={result} className={className} />
-            <button
-              onClick={() => setResult(null)}
-              className="mt-8 text-sm text-stone-400 hover:text-stone-600 transition-colors"
-            >
+            <button onClick={() => setResult(null)} className="mt-8 text-sm text-stone-400 hover:text-stone-600 transition-colors">
               ← Generate another
             </button>
           </>
