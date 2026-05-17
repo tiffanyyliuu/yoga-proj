@@ -20,7 +20,14 @@ const FOCUSES = [
   'Lower Back Care', 'Wrist-Free', 'Pranayama Focus',
 ];
 const ENERGIES = ['Low — needs warming up', 'Medium — steady', 'High — ready to work'];
-const SPECIALS = ['New student(s)', 'Injury mentioned today', 'Post-holiday / long break', 'Shorter class', 'Student-requested focus'];
+const SPECIALS = [
+  'New student(s)', 'Injury mentioned today', 'Pregnancy in room', 'Senior students present',
+  'Kids or teens in class', 'Post-holiday / long break', 'First class back after illness',
+  'Shorter class', 'Longer class', 'Student-requested focus',
+  'High stress / heavy energy', 'Low energy room', 'Post-event / tired bodies',
+  'Mixed levels today', 'Outdoor class', 'Hot / heated room',
+  'No props available', 'Virtual / online class', 'Corporate / office setting', 'Celebratory occasion',
+];
 
 function Tag({ label, selected, onClick }) {
   return (
