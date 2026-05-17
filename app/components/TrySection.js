@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
 import YogaLoader from './YogaLoader';
 
@@ -85,6 +85,7 @@ function SequenceResult({ data }) {
 }
 
 export default function TrySection() {
+  const sectionRef = useRef(null);
   const [themes, setThemes] = useState([]);
   const [focuses, setFocuses] = useState([]);
   const [energy, setEnergy] = useState('');
@@ -100,6 +101,7 @@ export default function TrySection() {
     setLoading(true);
     setResult(null);
     setError('');
+    sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     const contextParts = [
       themes.length > 0 && `Theme: ${themes.join(', ')}`,
       focuses.length > 0 && `Focus areas: ${focuses.join(', ')}`,
@@ -124,7 +126,7 @@ export default function TrySection() {
   }
 
   return (
-    <section id="try" className="px-8 sm:px-12 py-20 border-t border-stone-100 dark:border-stone-800">
+    <section ref={sectionRef} id="try" className="px-8 sm:px-12 py-20 border-t border-stone-100 dark:border-stone-800">
       <div className="max-w-3xl">
         <p className="text-[11px] tracking-[0.2em] uppercase text-stone-400 dark:text-stone-500 mb-3">Try it yourself</p>
         <h2 className="font-serif text-4xl sm:text-5xl font-light mb-2">Generate a sequence</h2>
