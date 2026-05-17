@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { createClient } from '../lib/supabase/server';
 import { redirect } from 'next/navigation';
 import ThemeToggle from './components/ThemeToggle';
+import TrySection from './components/TrySection';
 
 export default async function LandingPage() {
   const supabase = createClient();
@@ -40,8 +41,8 @@ export default async function LandingPage() {
             className="text-[13px] tracking-wide bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 px-7 py-3 rounded hover:bg-stone-700 dark:hover:bg-white transition-colors">
             Get early access
           </Link>
-          <a href="#preview" className="text-[13px] text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-300 transition-colors flex items-center gap-1.5">
-            See a sample sequence →
+          <a href="#try" className="text-[13px] text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-300 transition-colors flex items-center gap-1.5">
+            Try it free →
           </a>
         </div>
       </section>
@@ -134,6 +135,8 @@ export default async function LandingPage() {
           </div>
         </div>
       </div>
+
+      <TrySection />
 
       {/* Testimonial */}
       <section className="px-8 sm:px-12 py-20 border-t border-stone-100 dark:border-stone-800">
