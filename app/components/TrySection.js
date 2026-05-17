@@ -128,13 +128,13 @@ export default function TrySection() {
             <div>
               <p className="text-[11px] font-semibold tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-3">Theme for today</p>
               <div className="flex flex-wrap gap-2">
-                {THEMES.map(t => <Tag key={t} label={t} selected={themes.includes(t)} onClick={toggle(setThemes)(t)} />)}
+                {THEMES.map(t => <Tag key={t} label={t} selected={themes.includes(t)} onClick={() => toggle(setThemes)(t)} />)}
               </div>
             </div>
             <div>
               <p className="text-[11px] font-semibold tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-3">Focus</p>
               <div className="flex flex-wrap gap-2">
-                {FOCUSES.map(f => <Tag key={f} label={f} selected={focuses.includes(f)} onClick={toggle(setFocuses)(f)} />)}
+                {FOCUSES.map(f => <Tag key={f} label={f} selected={focuses.includes(f)} onClick={() => toggle(setFocuses)(f)} />)}
               </div>
             </div>
             <div>
@@ -146,7 +146,7 @@ export default function TrySection() {
             <div>
               <p className="text-[11px] font-semibold tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-3">Anything special?</p>
               <div className="flex flex-wrap gap-2 mb-3">
-                {SPECIALS.map(s => <Tag key={s} label={s} selected={specials.includes(s)} onClick={toggle(setSpecials)(s)} />)}
+                {SPECIALS.map(s => <Tag key={s} label={s} selected={specials.includes(s)} onClick={() => toggle(setSpecials)(s)} />)}
               </div>
               <input value={customNote} onChange={e => setCustomNote(e.target.value)} placeholder="Other notes..."
                 className="w-full px-4 py-3 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl text-sm text-stone-900 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-600 focus:outline-none focus:border-stone-400 dark:focus:border-stone-500 transition-colors" />
