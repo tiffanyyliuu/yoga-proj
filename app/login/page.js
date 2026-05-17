@@ -1,6 +1,7 @@
-import { signIn, signUp } from './actions';
+import { signIn } from './actions';
 import Link from 'next/link';
 import ThemeToggle from '../components/ThemeToggle';
+import LoginButtons from './LoginButtons';
 
 export default function LoginPage({ searchParams }) {
   const error = searchParams?.error;
@@ -63,21 +64,7 @@ export default function LoginPage({ searchParams }) {
               />
             </div>
 
-            <div className="flex gap-3 pt-2">
-              <button
-                type="submit"
-                className="flex-1 py-3 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-lg text-sm font-medium hover:bg-stone-700 dark:hover:bg-white transition-colors"
-              >
-                Sign in
-              </button>
-              <button
-                type="submit"
-                formAction={signUp}
-                className="flex-1 py-3 border border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-300 rounded-lg text-sm hover:border-stone-400 dark:hover:border-stone-500 hover:text-stone-900 dark:hover:text-stone-100 transition-colors"
-              >
-                Sign up
-              </button>
-            </div>
+            <LoginButtons />
           </form>
         </div>
       </div>
