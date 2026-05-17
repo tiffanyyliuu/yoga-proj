@@ -5,7 +5,20 @@ import Link from 'next/link';
 import ThemeToggle from '../../../components/ThemeToggle';
 import YogaLoader from '../../../components/YogaLoader';
 
-const THEMES = ['Grounding', 'Heart Opening', 'Hip Focus', 'Backbends', 'Strength & Power', 'Balance & Focus', 'Twists', 'Restorative', 'Energy Boost'];
+const THEMES = [
+  'Grounded Presence', 'Inner Compass', 'Root & Rise', 'Soft Strength', 'Gentle Power',
+  'Open Awareness', 'Moving Intentionally', 'Sacred Pause', "Beginner's Mind", 'Fluid Balance',
+  'Steady Breath', 'Quiet Courage', 'Deep Listening', 'Spaciousness', 'Tender Resilience',
+  'Radiant Energy', 'Present Moment', 'Effortless Ease', 'Playful Flow', 'Soul Expansion',
+  'Inner Stillness', 'Courageous Heart', 'Emotional Alchemy', 'Trust Yourself', 'Mindful Movement',
+  'Rest & Restore', 'Flow State', 'Wild Softness', 'Openheartedness', 'Intentional Living',
+];
+const FOCUSES = [
+  'Hip Opening', 'Heart Opening', 'Backbends', 'Twists', 'Forward Folds',
+  'Core Strength', 'Balance & Stability', 'Inversions', 'Arm Balances', 'Standing Poses',
+  'Seated Practice', 'Restorative / Floor', 'Shoulder Opening', 'Hamstrings', 'Hip Flexors',
+  'Lower Back Care', 'Wrist-Free', 'Pranayama Focus',
+];
 const ENERGIES = ['Low — needs warming up', 'Medium — steady', 'High — ready to work'];
 const SPECIALS = ['New student(s)', 'Injury mentioned today', 'Post-holiday / long break', 'Shorter class', 'Student-requested focus'];
 
@@ -66,7 +79,8 @@ function SequencePreview({ data, className }) {
 }
 
 export default function GenerateClient({ classId, className }) {
-  const [theme, setTheme] = useState('');
+  const [themes, setThemes] = useState([]);
+  const [focuses, setFocuses] = useState([]);
   const [energy, setEnergy] = useState('');
   const [specials, setSpecials] = useState([]);
   const [customNote, setCustomNote] = useState('');
@@ -74,16 +88,15 @@ export default function GenerateClient({ classId, className }) {
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
 
-  function toggleSpecial(s) {
-    setSpecials(prev => prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]);
-  }
+  function toggle(set) { return val => set(prev => prev.includes(val) ? prev.filter(x => x !== val) : [...prev, val]); }
 
   async function handleGenerate() {
     setLoading(true);
     setResult(null);
     setError('');
     const contextParts = [
-      theme && `Theme: ${theme}`,
+      themes.length > 0 && `Theme: ${themes.join(', ')}`,
+      focuses.length > 0 && `Focus areas: ${focuses.join(', ')}`,
       energy && `Group energy: ${energy}`,
       specials.length > 0 && `Special notes: ${specials.join(', ')}`,
       customNote.trim(),
@@ -127,7 +140,13 @@ export default function GenerateClient({ classId, className }) {
             <div>
               <p className="text-xs font-semibold tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-4">Theme for today</p>
               <div className="flex flex-wrap gap-2">
-                {THEMES.map(t => <Tag key={t} label={t} selected={theme === t} onClick={() => setTheme(theme === t ? '' : t)} />)}
+                {THEMES.map(t => <Tag key={t} label={t} selected={themes.includes(t)} onClick={toggle(setThemes)(t)} />)}
+              </div>
+            </div>
+            <div>
+              <p className="text-xs font-semibold tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-4">Focus</p>
+              <div className="flex flex-wrap gap-2">
+                {FOCUSES.map(f => <Tag key={f} label={f} selected={focuses.includes(f)} onClick={toggle(setFocuses)(f)} />)}
               </div>
             </div>
             <div>
@@ -139,7 +158,7 @@ export default function GenerateClient({ classId, className }) {
             <div>
               <p className="text-xs font-semibold tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-4">Anything special today?</p>
               <div className="flex flex-wrap gap-2 mb-4">
-                {SPECIALS.map(s => <Tag key={s} label={s} selected={specials.includes(s)} onClick={() => toggleSpecial(s)} />)}
+                {SPECIALS.map(s => <Tag key={s} label={s} selected={specials.includes(s)} onClick={toggle(setSpecials)(s)} />)}
               </div>
               <input value={customNote} onChange={e => setCustomNote(e.target.value)} placeholder="Other notes..."
                 className="w-full px-4 py-3 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl text-sm text-stone-900 dark:text-stone-100 placeholder-stone-400 dark:placeholder-stone-600 focus:outline-none focus:border-stone-400 dark:focus:border-stone-500 transition-colors" />
