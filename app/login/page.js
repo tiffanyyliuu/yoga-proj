@@ -33,7 +33,7 @@ export default function LoginPage({ searchParams }) {
             </div>
           )}
 
-          <form className="space-y-4">
+          <form action={signIn} className="space-y-4">
             <div>
               <label htmlFor="email" className="block text-xs text-stone-500 dark:text-stone-400 mb-2 tracking-wide uppercase">
                 Email
@@ -65,12 +65,13 @@ export default function LoginPage({ searchParams }) {
 
             <div className="flex gap-3 pt-2">
               <button
-                formAction={signIn}
+                type="submit"
                 className="flex-1 py-3 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-lg text-sm font-medium hover:bg-stone-700 dark:hover:bg-white transition-colors"
               >
                 Sign in
               </button>
               <button
+                type="submit"
                 formAction={signUp}
                 className="flex-1 py-3 border border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-300 rounded-lg text-sm hover:border-stone-400 dark:hover:border-stone-500 hover:text-stone-900 dark:hover:text-stone-100 transition-colors"
               >
