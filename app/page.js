@@ -3,6 +3,7 @@ import { createClient } from '../lib/supabase/server';
 import { redirect } from 'next/navigation';
 import ThemeToggle from './components/ThemeToggle';
 import TrySection from './components/TrySection';
+import TestimonialCarousel from './components/TestimonialCarousel';
 
 export default async function LandingPage() {
   const supabase = createClient();
@@ -138,13 +139,7 @@ export default async function LandingPage() {
 
       <TrySection />
 
-      {/* Testimonial */}
-      <section className="px-8 sm:px-12 py-20 border-t border-stone-100 dark:border-stone-800">
-        <blockquote className="font-serif text-3xl sm:text-4xl font-light italic leading-snug max-w-2xl text-stone-700 dark:text-stone-300 mb-6">
-          &ldquo;I used to spend an hour planning each class. Now I spend five minutes and teach better.&rdquo;
-        </blockquote>
-        <p className="text-[13px] text-stone-400 dark:text-stone-500 tracking-wide">Early tester — 200hr certified, teaching since 2019</p>
-      </section>
+      <TestimonialCarousel />
 
       {/* Footer */}
       <footer className="px-8 sm:px-12 py-6 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between">
