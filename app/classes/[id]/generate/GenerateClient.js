@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import ThemeToggle from '../../../components/ThemeToggle';
+import YogaLoader from '../../../components/YogaLoader';
 
 const THEMES = ['Grounding', 'Heart Opening', 'Hip Focus', 'Backbends', 'Strength & Power', 'Balance & Focus', 'Twists', 'Restorative', 'Energy Boost'];
 const ENERGIES = ['Low — needs warming up', 'Medium — steady', 'High — ready to work'];
@@ -150,13 +151,7 @@ export default function GenerateClient({ classId, className }) {
           </div>
         )}
 
-        {loading && (
-          <div className="flex flex-col items-center justify-center py-32 text-stone-400">
-            <div className="w-8 h-8 border-2 border-stone-200 dark:border-stone-700 border-t-stone-600 rounded-full animate-spin mb-6" />
-            <p className="font-serif text-xl font-light">Crafting your sequence…</p>
-            <p className="text-stone-400 dark:text-stone-500 text-sm mt-2">This takes about 30 seconds</p>
-          </div>
-        )}
+        {loading && <YogaLoader />}
 
         {error && <div className="bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-300 px-4 py-3 rounded-xl text-sm">{error}</div>}
 

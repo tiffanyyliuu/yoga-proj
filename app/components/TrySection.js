@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import YogaLoader from './YogaLoader';
 
 const THEMES = ['Grounding', 'Heart Opening', 'Hip Focus', 'Backbends', 'Strength & Power', 'Balance & Focus', 'Twists', 'Restorative', 'Energy Boost'];
 const ENERGIES = ['Low — needs warming up', 'Medium — steady', 'High — ready to work'];
@@ -138,13 +139,7 @@ export default function TrySection() {
           </div>
         )}
 
-        {loading && (
-          <div className="flex flex-col items-center justify-center py-24 text-stone-400">
-            <div className="w-7 h-7 border-2 border-stone-200 dark:border-stone-700 border-t-stone-500 rounded-full animate-spin mb-5" />
-            <p className="font-serif text-xl font-light">Crafting your sequence…</p>
-            <p className="text-stone-400 dark:text-stone-500 text-sm mt-1">About 30 seconds</p>
-          </div>
-        )}
+        {loading && <YogaLoader />}
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
