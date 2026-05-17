@@ -43,7 +43,7 @@ export default async function LandingPage() {
             Get early access
           </Link>
           <a href="#try" className="text-[13px] text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-300 transition-colors flex items-center gap-1.5">
-            Try it free →
+            Try it first →
           </a>
         </div>
       </section>
