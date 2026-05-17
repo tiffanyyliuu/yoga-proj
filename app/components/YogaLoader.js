@@ -13,7 +13,7 @@ export default function YogaLoader({
         height="120"
         fill="none"
         className="text-stone-300 dark:text-stone-600 mb-8"
-        style={{ animation: 'spin 4s linear infinite', transformOrigin: '50% 50%' }}
+        style={{ animation: 'yoga-spin 4s linear infinite', transformOrigin: '50% 50%' }}
       >
         {/* Head */}
         <circle cx="30" cy="10" r="8" fill="currentColor" />
