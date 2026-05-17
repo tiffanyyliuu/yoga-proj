@@ -174,15 +174,21 @@ export default function TrySection() {
         {result && (
           <div>
             <SequenceResult data={result} />
-            <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-              <Link href="/login"
-                className="px-8 py-3.5 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 text-sm rounded-full hover:bg-stone-700 dark:hover:bg-white transition-colors">
-                Sign up to save this →
-              </Link>
-              <button onClick={() => { setResult(null); setThemes([]); setFocuses([]); setEnergy(''); setSpecials([]); setCustomNote(''); }}
-                className="text-sm text-stone-400 hover:text-stone-600 dark:hover:text-stone-300 transition-colors">
-                ← Try different options
-              </button>
+            <div className="mt-8 p-5 border border-stone-100 dark:border-stone-800 rounded-2xl bg-stone-50 dark:bg-stone-900">
+              <p className="text-sm text-stone-700 dark:text-stone-300 font-medium mb-1">Want to keep this?</p>
+              <p className="text-sm text-stone-400 dark:text-stone-500 mb-4">
+                Create a free account to set up your class profile — then every sequence you generate is saved, personalised to your students, and learns from your notes over time.
+              </p>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                <Link href="/login"
+                  className="px-7 py-3 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 text-sm rounded-full hover:bg-stone-700 dark:hover:bg-white transition-colors">
+                  Create a free account →
+                </Link>
+                <button onClick={() => { setResult(null); setThemes([]); setFocuses([]); setEnergy(''); setSpecials([]); setCustomNote(''); }}
+                  className="text-sm text-stone-400 hover:text-stone-600 dark:hover:text-stone-300 transition-colors">
+                  ← Try different options
+                </button>
+              </div>
             </div>
           </div>
         )}
