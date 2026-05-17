@@ -14,6 +14,8 @@ export async function createClass(formData) {
     name: formData.get('name'),
     level: formData.get('level') || null,
     size: parseInt(formData.get('size')) || null,
+    class_type: formData.get('class_type') || null,
+    time_of_day: formData.get('time_of_day') || null,
     vibe: formData.get('vibe') || null,
     recurring_notes: formData.get('recurring_notes') || null,
   }).select().single();

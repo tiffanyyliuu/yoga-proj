@@ -6,8 +6,28 @@ import { createClass } from './actions';
 import ThemeToggle from '../../components/ThemeToggle';
 
 const LEVEL_OPTIONS = ['All Levels', 'Beginner-friendly', 'Mixed', 'Intermediate', 'Advanced'];
-const VIBE_OPTIONS = ['Social / Chatty', 'Focused & Quiet', 'Athletic', 'Spiritual', 'Relaxed Pace', 'High Energy'];
-const INJURY_OPTIONS = ['Lower back', 'Wrists', 'Knees', 'Shoulders', 'Neck', 'Hips', 'Seniors / accessibility', 'Prenatal'];
+
+const CLASS_TYPE_OPTIONS = [
+  'Vinyasa', 'Ashtanga', 'Power Yoga', 'Hatha', 'Yin', 'Restorative',
+  'Kundalini', 'Hot Yoga', 'Slow Flow', 'Gentle Yoga', 'Chair Yoga',
+  'Prenatal', 'Barre Yoga', 'Aerial', 'Meditation', 'Breathwork / Pranayama',
+];
+
+const TIME_OPTIONS = ['Morning', 'Afternoon', 'Evening'];
+
+const VIBE_OPTIONS = [
+  'Social / Chatty', 'Focused & Quiet', 'Athletic', 'Spiritual',
+  'Relaxed Pace', 'High Energy', 'Meditative', 'Playful',
+  'Community-oriented', 'Competitive', 'Beginner-friendly vibe',
+  'Advanced practitioners', 'Mixed intentions',
+];
+
+const INJURY_OPTIONS = [
+  'Lower back', 'Wrists', 'Knees', 'Shoulders', 'Neck', 'Hips',
+  'Seniors / accessibility', 'Prenatal', 'Post-natal', 'Chronic pain',
+  'Hypermobility', 'Tight hamstrings', 'Limited mobility', 'Anxiety / stress',
+  'Scoliosis', 'SI joint issues', 'Post-surgery recovery', 'Athletes / cross-training',
+];
 
 function Tag({ label, selected, onClick }) {
   return (
@@ -28,14 +48,15 @@ function Tag({ label, selected, onClick }) {
 export default function NewClassPage() {
   const [name, setName] = useState('');
   const [level, setLevel] = useState('');
+  const [classTypes, setClassTypes] = useState([]);
+  const [timeOfDay, setTimeOfDay] = useState('');
   const [size, setSize] = useState('');
   const [vibes, setVibes] = useState([]);
   const [injuries, setInjuries] = useState([]);
   const [customNote, setCustomNote] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
-  function toggleVibe(v) { setVibes(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v]); }
-  function toggleInjury(i) { setInjuries(prev => prev.includes(i) ? prev.filter(x => x !== i) : [...prev, i]); }
+  function toggle(set) { return val => set(prev => prev.includes(val) ? prev.filter(x => x !== val) : [...prev, val]); }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -45,6 +66,8 @@ export default function NewClassPage() {
     formData.append('name', name);
     formData.append('level', level);
     formData.append('size', size);
+    formData.append('class_type', classTypes.join(', '));
+    formData.append('time_of_day', timeOfDay);
     formData.append('vibe', vibes.join(', '));
     formData.append('recurring_notes', allNotes.join(', '));
     await createClass(formData);
@@ -83,6 +106,24 @@ export default function NewClassPage() {
           </div>
 
           <div>
+            <label className="block text-xs font-semibold tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-3">Class type</label>
+            <div className="flex flex-wrap gap-2">
+              {CLASS_TYPE_OPTIONS.map(opt => (
+                <Tag key={opt} label={opt} selected={classTypes.includes(opt)} onClick={() => toggle(setClassTypes)(opt)} />
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-3">Time of day</label>
+            <div className="flex flex-wrap gap-2">
+              {TIME_OPTIONS.map(opt => (
+                <Tag key={opt} label={opt} selected={timeOfDay === opt} onClick={() => setTimeOfDay(timeOfDay === opt ? '' : opt)} />
+              ))}
+            </div>
+          </div>
+
+          <div>
             <label className="block text-xs font-semibold tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-3">Level</label>
             <div className="flex flex-wrap gap-2">
               {LEVEL_OPTIONS.map(opt => (
@@ -107,7 +148,7 @@ export default function NewClassPage() {
             <label className="block text-xs font-semibold tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-3">Vibe of this group</label>
             <div className="flex flex-wrap gap-2">
               {VIBE_OPTIONS.map(opt => (
-                <Tag key={opt} label={opt} selected={vibes.includes(opt)} onClick={() => toggleVibe(opt)} />
+                <Tag key={opt} label={opt} selected={vibes.includes(opt)} onClick={() => toggle(setVibes)(opt)} />
               ))}
             </div>
           </div>
@@ -116,7 +157,7 @@ export default function NewClassPage() {
             <label className="block text-xs font-semibold tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-3">Recurring student needs / injuries</label>
             <div className="flex flex-wrap gap-2 mb-3">
               {INJURY_OPTIONS.map(opt => (
-                <Tag key={opt} label={opt} selected={injuries.includes(opt)} onClick={() => toggleInjury(opt)} />
+                <Tag key={opt} label={opt} selected={injuries.includes(opt)} onClick={() => toggle(setInjuries)(opt)} />
               ))}
             </div>
             <input

@@ -51,8 +51,20 @@ export default async function ClassDetailPage({ params }) {
             </div>
           </div>
 
-          {(cls.vibe || cls.recurring_notes) && (
+          {(cls.class_type || cls.time_of_day || cls.vibe || cls.recurring_notes) && (
             <div className="mt-8 pt-8 border-t border-stone-800 grid sm:grid-cols-2 gap-6">
+              {cls.class_type && (
+                <div>
+                  <p className="text-stone-500 text-xs tracking-[0.15em] uppercase mb-1">Class type</p>
+                  <p className="text-stone-300 text-sm">{cls.class_type}</p>
+                </div>
+              )}
+              {cls.time_of_day && (
+                <div>
+                  <p className="text-stone-500 text-xs tracking-[0.15em] uppercase mb-1">Time of day</p>
+                  <p className="text-stone-300 text-sm">{cls.time_of_day}</p>
+                </div>
+              )}
               {cls.vibe && (
                 <div>
                   <p className="text-stone-500 text-xs tracking-[0.15em] uppercase mb-1">Vibe</p>
@@ -61,7 +73,7 @@ export default async function ClassDetailPage({ params }) {
               )}
               {cls.recurring_notes && (
                 <div>
-                  <p className="text-stone-500 text-xs tracking-[0.15em] uppercase mb-1">Recurring notes</p>
+                  <p className="text-stone-500 text-xs tracking-[0.15em] uppercase mb-1">Recurring needs</p>
                   <p className="text-stone-300 text-sm">{cls.recurring_notes}</p>
                 </div>
               )}
